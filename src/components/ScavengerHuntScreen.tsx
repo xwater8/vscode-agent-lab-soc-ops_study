@@ -3,7 +3,7 @@ import type { ScavengerQuestion } from '../types';
 import { ProgressMeter } from './ProgressMeter';
 import { ScavengerListItem } from './ScavengerListItem';
 
-interface ScavengerHuntScreenProps {
+export interface ScavengerHuntScreenProps {
   questions: ScavengerQuestion[];
   onToggleQuestion: (questionId: number) => void;
   onBack: () => void;
@@ -103,5 +103,3 @@ export function ScavengerHuntScreen({ questions, onToggleQuestion, onBack }: Sca
     </div>
   );
 }
-
-export default ScavengerHuntScreen;
