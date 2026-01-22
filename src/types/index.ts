@@ -13,4 +13,12 @@ export interface BingoLine {
   squares: number[];
 }
 
-export type GameState = 'start' | 'playing' | 'bingo';
+export interface ScavengerQuestion {
+  id: number;
+  text: string;
+  isCompleted: boolean;
+}
+
+export type GameMode = 'bingo' | 'scavenger';
+
+export type GameState = 'start' | 'playing' | 'bingo' | 'scavenger-playing' | 'scavenger-complete';

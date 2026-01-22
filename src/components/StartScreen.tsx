@@ -1,8 +1,9 @@
 interface StartScreenProps {
-  onStart: () => void;
+  onStartBingo: () => void;
+  onStartScavenger: () => void;
 }
 
-export function StartScreen({ onStart }: StartScreenProps) {
+export function StartScreen({ onStartBingo, onStartScavenger }: StartScreenProps) {
   return (
     <div className="relative flex flex-col items-center justify-center min-h-full p-6 overflow-hidden">
       {/* Nebula Background Gradient */}
@@ -46,7 +47,7 @@ export function StartScreen({ onStart }: StartScreenProps) {
         
         {/* Instructions card with backdrop blur and glow border */}
         <div 
-          className="relative mb-12 rounded-2xl p-6 border-2 backdrop-blur-md overflow-hidden"
+          className="relative mb-8 rounded-2xl p-6 border-2 backdrop-blur-md overflow-hidden"
           style={{
             background: 'rgba(26, 11, 46, 0.7)',
             borderColor: 'var(--color-neon-purple)',
@@ -63,54 +64,50 @@ export function StartScreen({ onStart }: StartScreenProps) {
             }}
           />
           
-          <h2 className="font-display text-xl font-bold mb-4 relative" style={{ color: '#00d4ff' }}>
-            HOW TO PLAY
+          <h2 className="font-display text-xl font-bold mb-3 relative" style={{ color: '#00d4ff' }}>
+            CHOOSE YOUR MODE
           </h2>
-          <ul className="text-left font-mono text-sm space-y-3 relative" style={{ color: '#e0e0e0' }}>
-            <li className="flex items-start">
-              <span className="text-neon-cyan mr-2">▸</span>
-              Find people who match the questions
-            </li>
-            <li className="flex items-start">
-              <span className="text-neon-magenta mr-2">▸</span>
-              Tap a square when you find a match
-            </li>
-            <li className="flex items-start">
-              <span className="text-neon-purple mr-2">▸</span>
-              Get 5 in a row to win!
-            </li>
-          </ul>
+          <p className="text-sm font-mono mb-4 relative" style={{ color: '#e0e0e0' }}>
+            Same questions, different gameplay styles
+          </p>
         </div>
 
-        {/* Start button with neon glow and sweep effect */}
-        <button
-          onClick={onStart}
-          className="relative w-full font-display text-xl font-bold py-5 px-10 rounded-xl overflow-hidden transition-all duration-300 active:scale-95"
-          style={{
-            background: 'linear-gradient(135deg, #00f0ff 0%, #9d4edd 100%)',
-            color: '#0a0118',
-            boxShadow: '0 0 20px rgba(0, 240, 255, 0.6), 0 0 40px rgba(157, 78, 221, 0.4)',
-            animation: 'float-up 0.8s ease-out 0.6s backwards'
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.boxShadow = '0 0 30px rgba(0, 240, 255, 0.8), 0 0 60px rgba(157, 78, 221, 0.6)';
-            e.currentTarget.style.transform = 'translateY(-2px)';
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.boxShadow = '0 0 20px rgba(0, 240, 255, 0.6), 0 0 40px rgba(157, 78, 221, 0.4)';
-            e.currentTarget.style.transform = 'translateY(0)';
-          }}
-        >
-          {/* Animated light sweep */}
-          <div 
-            className="absolute inset-0 opacity-40"
+        {/* Mode Selection Buttons */}
+        <div className="space-y-4">
+          {/* BINGO MODE Button */}
+          <button
+            onClick={onStartBingo}
+            className="relative w-full font-display text-lg font-bold py-5 px-8 rounded-xl overflow-hidden transition-all duration-300 hover:scale-105 active:scale-95 border-2"
             style={{
-              background: 'linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent)',
-              animation: 'sweep-light 2s ease-in-out infinite'
+              background: 'linear-gradient(135deg, rgba(0, 240, 255, 0.2) 0%, rgba(157, 78, 221, 0.2) 100%)',
+              borderColor: '#00f0ff',
+              color: '#00f0ff',
+              textShadow: 'var(--glow-soft-cyan)',
+              boxShadow: 'var(--glow-soft-cyan)',
+              animation: 'float-up 0.8s ease-out 0.6s backwards, border-glow 3s ease-in-out infinite'
             }}
-          />
-          <span className="relative tracking-wider">LAUNCH GAME</span>
-        </button>
+          >
+            <span className="relative tracking-wider">🎯 BINGO MODE</span>
+            <div className="text-xs font-mono mt-1 opacity-80">5×5 grid • Get 5 in a row</div>
+          </button>
+
+          {/* SCAVENGER HUNT Button */}
+          <button
+            onClick={onStartScavenger}
+            className="relative w-full font-display text-lg font-bold py-5 px-8 rounded-xl overflow-hidden transition-all duration-300 hover:scale-105 active:scale-95 border-2"
+            style={{
+              background: 'linear-gradient(135deg, rgba(255, 0, 229, 0.2) 0%, rgba(157, 78, 221, 0.2) 100%)',
+              borderColor: '#ff00e5',
+              color: '#ff00e5',
+              textShadow: 'var(--glow-soft-magenta)',
+              boxShadow: 'var(--glow-soft-magenta)',
+              animation: 'float-up 0.8s ease-out 0.7s backwards'
+            }}
+          >
+            <span className="relative tracking-wider">📋 SCAVENGER HUNT</span>
+            <div className="text-xs font-mono mt-1 opacity-80">List with checkboxes • Find all 24</div>
+          </button>
+        </div>
       </div>
     </div>
   );

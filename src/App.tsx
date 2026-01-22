@@ -2,18 +2,25 @@ import { useBingoGame } from './hooks/useBingoGame';
 import { StartScreen } from './components/StartScreen';
 import { GameScreen } from './components/GameScreen';
 import { BingoModal } from './components/BingoModal';
+import { ScavengerHuntScreen } from './components/ScavengerHuntScreen';
+import { ScavengerCompleteModal } from './components/ScavengerCompleteModal';
 import { StarField } from './components/StarField';
 
 function App() {
   const {
     gameState,
     board,
+    scavengerQuestions,
     winningSquareIds,
     showBingoModal,
+    showScavengerModal,
     startGame,
+    startScavengerHunt,
     handleSquareClick,
+    toggleScavengerQuestion,
     resetGame,
     dismissModal,
+    dismissScavengerModal,
   } = useBingoGame();
 
   return (
@@ -22,7 +29,24 @@ function App() {
       <StarField />
       
       {gameState === 'start' ? (
-        <StartScreen onStart={startGame} />
+        <StartScreen 
+          onStartBingo={startGame} 
+          onStartScavenger={startScavengerHunt}
+        />
+      ) : gameState === 'scavenger-playing' || gameState === 'scavenger-complete' ? (
+        <>
+          <ScavengerHuntScreen
+            questions={scavengerQuestions}
+            onToggleQuestion={toggleScavengerQuestion}
+            onBack={resetGame}
+          />
+          {showScavengerModal && (
+            <ScavengerCompleteModal 
+              onDismiss={dismissScavengerModal} 
+              onPlayAgain={startScavengerHunt}
+            />
+          )}
+        </>
       ) : (
         <>
           <GameScreen
