@@ -1,0 +1,294 @@
+/* 
+ * Variation 2: Retro Arcade Neon
+ * CSS Implementation Example
+ * 
+ * This file demonstrates the key CSS for implementing the Retro Arcade variation.
+ * Replace the content of src/index.css with this to apply the theme.
+ */
+
+@import 'tailwindcss';
+
+@theme {
+  /* Primary Colors */
+  --color-screen-black: #0d0208;
+  --color-screen-dark: #1a0f1e;
+  --color-arcade-purple: #3c096c;
+  --color-cabinet-blue: #10002b;
+  
+  /* Neon Accent Colors */
+  --color-neon-pink: #ff006e;
+  --color-neon-yellow: #ffbe0b;
+  --color-neon-cyan: #00f5ff;
+  --color-neon-green: #39ff14;
+  --color-neon-orange: #fb5607;
+  
+  /* Semantic Colors */
+  --color-surface: var(--color-screen-black);
+  --color-surface-elevated: var(--color-arcade-purple);
+  --color-border: var(--color-neon-cyan);
+  --color-text-primary: #ffffff;
+  --color-text-secondary: var(--color-neon-yellow);
+  --color-accent: var(--color-neon-pink);
+  --color-marked: var(--color-neon-yellow);
+  --color-bingo: var(--color-neon-green);
+  
+  /* Neon Glows */
+  --glow-pink: 0 0 5px #ff006e, 0 0 10px #ff006e, 0 0 20px #ff006e, 0 0 40px #ff006e;
+  --glow-cyan: 0 0 5px #00f5ff, 0 0 10px #00f5ff, 0 0 20px #00f5ff, 0 0 40px #00f5ff;
+  --glow-yellow: 0 0 5px #ffbe0b, 0 0 10px #ffbe0b, 0 0 20px #ffbe0b;
+  --glow-green: 0 0 5px #39ff14, 0 0 10px #39ff14, 0 0 20px #39ff14, 0 0 40px #39ff14;
+  --arcade-inset: inset 0 -4px 0 rgba(0, 0, 0, 0.5);
+  
+  /* Typography */
+  --font-display: 'Press Start 2P', cursive;
+  --font-body: 'VT323', monospace;
+  --font-score: 'Bungee', display;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  background: var(--color-screen-black);
+  color: #ffffff;
+  -webkit-tap-highlight-color: transparent;
+  overflow-x: hidden;
+}
+
+/* CRT Scanlines Effect */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.15),
+    rgba(0, 0, 0, 0.15) 1px,
+    transparent 1px,
+    transparent 2px
+  );
+  pointer-events: none;
+  z-index: 9999;
+  animation: crt-flicker 0.1s infinite;
+}
+
+/* Arcade Animations */
+@keyframes blink-arcade {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+@keyframes crt-flicker {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.95; }
+}
+
+@keyframes neon-pulse {
+  0%, 100% { 
+    text-shadow: var(--glow-pink);
+    filter: brightness(1);
+  }
+  50% { 
+    text-shadow: 0 0 10px #ff006e, 0 0 20px #ff006e, 0 0 40px #ff006e, 0 0 80px #ff006e;
+    filter: brightness(1.5);
+  }
+}
+
+@keyframes neon-pulse-cyan {
+  0%, 100% { 
+    box-shadow: var(--glow-cyan);
+  }
+  50% { 
+    box-shadow: 0 0 10px #00f5ff, 0 0 20px #00f5ff, 0 0 40px #00f5ff, 0 0 80px #00f5ff;
+  }
+}
+
+@keyframes pixel-pop {
+  0% { transform: scale(0); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+@keyframes screen-shake {
+  0%, 100% { transform: translate(0, 0); }
+  10% { transform: translate(-2px, 1px); }
+  20% { transform: translate(2px, -1px); }
+  30% { transform: translate(-2px, -1px); }
+  40% { transform: translate(2px, 1px); }
+  50% { transform: translate(-1px, 2px); }
+  60% { transform: translate(1px, -2px); }
+  70% { transform: translate(-1px, -2px); }
+  80% { transform: translate(1px, 2px); }
+  90% { transform: translate(-1px, 1px); }
+}
+
+@keyframes color-cycle {
+  0% { border-color: var(--color-neon-cyan); }
+  33% { border-color: var(--color-neon-pink); }
+  66% { border-color: var(--color-neon-yellow); }
+  100% { border-color: var(--color-neon-cyan); }
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  body::before {
+    animation: none !important;
+  }
+}
+
+/* 
+ * Component Example: Arcade Button
+ */
+.arcade-button {
+  font-family: var(--font-display);
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  padding: 1rem 2rem;
+  background: linear-gradient(180deg, var(--color-neon-pink) 0%, var(--color-arcade-purple) 100%);
+  color: white;
+  border: 3px solid var(--color-neon-cyan);
+  border-radius: 0;
+  box-shadow: var(--glow-cyan), var(--arcade-inset);
+  transition: all 150ms ease-out;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.arcade-button:hover {
+  border-color: var(--color-neon-green);
+  box-shadow: var(--glow-green), var(--arcade-inset);
+  transform: scale(1.05);
+}
+
+.arcade-button:active {
+  transform: scale(0.95);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* 
+ * Component Example: Arcade Square
+ */
+.arcade-square {
+  background: var(--color-screen-dark);
+  border: 3px solid var(--color-neon-cyan);
+  border-radius: 2px;
+  padding: 0.5rem;
+  transition: all 150ms ease-out;
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: 1.125rem;
+}
+
+.arcade-square:hover {
+  border-color: var(--color-neon-pink);
+  box-shadow: var(--glow-pink);
+  transform: scale(1.05);
+}
+
+.arcade-square.marked {
+  background: var(--color-neon-yellow);
+  color: var(--color-screen-black);
+  border-color: var(--color-neon-yellow);
+  box-shadow: var(--glow-yellow);
+  font-weight: bold;
+}
+
+.arcade-square.bingo {
+  border-color: var(--color-neon-green);
+  animation: neon-pulse-cyan 1s infinite, color-cycle 3s infinite;
+}
+
+/* 
+ * Component Example: INSERT COIN Title
+ */
+.arcade-title {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  color: var(--color-neon-cyan);
+  text-shadow: var(--glow-cyan);
+  animation: blink-arcade 800ms infinite, neon-pulse 1.5s ease-in-out infinite;
+  letter-spacing: 0.1em;
+}
+
+/* 
+ * Component Example: Score Display
+ */
+.arcade-score {
+  font-family: var(--font-score);
+  font-size: 1.5rem;
+  color: var(--color-neon-yellow);
+  text-shadow: var(--glow-yellow);
+  letter-spacing: 0.15em;
+}
+
+/* 
+ * Component Example: Arcade Cabinet Frame
+ */
+.arcade-frame {
+  border: 4px double var(--color-neon-cyan);
+  padding: 1rem;
+  background: var(--color-arcade-purple);
+  box-shadow: 
+    inset 0 0 20px rgba(0, 245, 255, 0.2),
+    var(--glow-cyan);
+}
+
+/* 
+ * Component Example: Pixel Grid Background
+ */
+.arcade-grid {
+  background-image: 
+    linear-gradient(0deg, rgba(0, 245, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 245, 255, 0.05) 1px, transparent 1px);
+  background-size: 8px 8px;
+}
+
+/* 
+ * Component Example: WINNER Banner
+ */
+.arcade-winner {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  background: linear-gradient(90deg, 
+    var(--color-neon-pink) 0%, 
+    var(--color-neon-yellow) 50%, 
+    var(--color-neon-pink) 100%
+  );
+  border: 3px solid var(--color-neon-green);
+  color: white;
+  text-shadow: 0 0 10px #000;
+  padding: 1rem;
+  animation: blink-arcade 800ms infinite, screen-shake 500ms;
+  box-shadow: var(--glow-green);
+}
+
+/* 
+ * Typography Classes
+ */
+.arcade-text-pixel {
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  line-height: 1.5;
+  letter-spacing: 0.05em;
+}
+
+.arcade-text-screen {
+  font-family: var(--font-body);
+  font-size: 1.25rem;
+  line-height: 1.2;
+  letter-spacing: 0.02em;
+}
