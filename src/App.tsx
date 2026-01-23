@@ -5,6 +5,7 @@ import { BingoModal } from './components/BingoModal';
 import { ScavengerHuntScreen } from './components/ScavengerHuntScreen';
 import { ScavengerCompleteModal } from './components/ScavengerCompleteModal';
 import { StarField } from './components/StarField';
+import { ThemeSwitcher } from './components/ThemeSwitcher';
 
 function App() {
   const {
@@ -25,6 +26,9 @@ function App() {
 
   return (
     <>
+      {/* Theme Switcher */}
+      <ThemeSwitcher />
+      
       {/* Global animated starfield background */}
       <StarField />
       
