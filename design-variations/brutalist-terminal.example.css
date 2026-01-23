@@ -1,0 +1,384 @@
+/* 
+ * Variation 3: Brutalist Terminal
+ * CSS Implementation Example
+ * 
+ * This file demonstrates the key CSS for implementing the Brutalist Terminal variation.
+ * Replace the content of src/index.css with this to apply the theme.
+ */
+
+@import 'tailwindcss';
+
+@theme {
+  /* Monochromatic Core */
+  --color-black: #000000;
+  --color-void: #0a0a0a;
+  --color-concrete: #1a1a1a;
+  --color-steel: #333333;
+  --color-iron: #666666;
+  --color-aluminum: #999999;
+  --color-chalk: #cccccc;
+  --color-white: #ffffff;
+  
+  /* Accent Colors (Minimal Use) */
+  --color-terminal-green: #00ff00;
+  --color-error-red: #ff0000;
+  --color-warning-yellow: #ffff00;
+  
+  /* Semantic Colors */
+  --color-surface: var(--color-black);
+  --color-surface-elevated: var(--color-concrete);
+  --color-border: var(--color-white);
+  --color-text-primary: var(--color-white);
+  --color-text-secondary: var(--color-aluminum);
+  --color-accent: var(--color-terminal-green);
+  --color-marked: var(--color-warning-yellow);
+  --color-bingo: var(--color-terminal-green);
+  
+  /* Typography */
+  --font-mono: 'IBM Plex Mono', 'Courier New', monospace;
+  --font-display: 'Roboto Mono', monospace;
+}
+
+/* Reset and Base - Strict 8px Grid */
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 16px;
+  line-height: 1.6;
+  background: var(--color-black);
+  color: var(--color-white);
+  -webkit-tap-highlight-color: transparent;
+  -webkit-font-smoothing: none;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: geometricPrecision;
+}
+
+/* Optional: 8px Grid Overlay (toggle in dev mode) */
+.grid-overlay {
+  position: fixed;
+  inset: 0;
+  background-size: 8px 8px;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0; /* Set to 1 to show grid */
+}
+
+/* Minimal Animations - Linear Only */
+@keyframes blink-cursor {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+@keyframes flash-border {
+  0%, 100% { border-color: var(--color-white); }
+  50% { border-color: var(--color-terminal-green); }
+}
+
+/* Reduced Motion Support (unnecessary - already minimal) */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* 
+ * Component Example: Terminal Button
+ */
+.terminal-button {
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  text-transform: uppercase;
+  padding: 16px 32px; /* 8px grid */
+  background: var(--color-black);
+  color: var(--color-white);
+  border: 1px solid var(--color-white);
+  border-radius: 0;
+  cursor: pointer;
+  transition: none; /* Instant */
+}
+
+.terminal-button::before {
+  content: '[';
+  margin-right: 8px;
+}
+
+.terminal-button::after {
+  content: ']';
+  margin-left: 8px;
+}
+
+.terminal-button:hover {
+  border-color: var(--color-terminal-green);
+  color: var(--color-terminal-green);
+}
+
+.terminal-button:active {
+  background: var(--color-white);
+  color: var(--color-black);
+}
+
+.terminal-button:focus {
+  outline: none;
+  border: 2px solid var(--color-terminal-green);
+}
+
+/* 
+ * Component Example: Terminal Square
+ */
+.terminal-square {
+  background: var(--color-black);
+  border: 1px solid var(--color-white);
+  border-radius: 0;
+  padding: 16px;
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  line-height: 1.4;
+  cursor: pointer;
+  transition: none;
+}
+
+.terminal-square:hover {
+  border-color: var(--color-terminal-green);
+}
+
+.terminal-square.marked {
+  background: var(--color-warning-yellow);
+  color: var(--color-black);
+  border-color: var(--color-black);
+  font-weight: bold;
+}
+
+.terminal-square.marked::before {
+  content: '[X] ';
+  font-weight: bold;
+}
+
+.terminal-square.bingo {
+  border: 2px solid var(--color-terminal-green);
+  animation: flash-border 1s linear infinite;
+}
+
+/* 
+ * Component Example: Terminal Title
+ */
+.terminal-title {
+  font-family: var(--font-display);
+  font-size: 2.25rem;
+  font-weight: 700;
+  line-height: 1.1;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-white);
+}
+
+.terminal-title::before {
+  content: '> ';
+  color: var(--color-terminal-green);
+}
+
+/* 
+ * Component Example: Terminal Status Bar
+ */
+.terminal-status {
+  background: var(--color-concrete);
+  border-bottom: 1px solid var(--color-white);
+  padding: 8px 16px;
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.terminal-status::before {
+  content: 'STATUS: ';
+  color: var(--color-aluminum);
+}
+
+/* 
+ * Component Example: Terminal Grid Container
+ */
+.terminal-grid {
+  display: grid;
+  gap: 8px; /* Strict 8px grid */
+  padding: 16px;
+}
+
+/* 
+ * Component Example: Terminal Banner
+ */
+.terminal-banner {
+  background: var(--color-terminal-green);
+  color: var(--color-black);
+  border: 2px solid var(--color-white);
+  padding: 16px;
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  text-align: center;
+  letter-spacing: 0.1em;
+}
+
+.terminal-banner::before {
+  content: '====== ';
+}
+
+.terminal-banner::after {
+  content: ' ======';
+}
+
+/* 
+ * Component Example: Terminal Modal
+ */
+.terminal-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--color-black);
+  border: 2px solid var(--color-white);
+  padding: 32px;
+  min-width: 400px;
+  z-index: 1000;
+}
+
+.terminal-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 999;
+}
+
+/* 
+ * Typography Classes
+ */
+.terminal-text {
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--color-white);
+}
+
+.terminal-text-secondary {
+  color: var(--color-aluminum);
+}
+
+.terminal-text-label {
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 0.75rem;
+  color: var(--color-aluminum);
+}
+
+/* 
+ * Component Example: Terminal Input/Field
+ */
+.terminal-input {
+  background: var(--color-concrete);
+  border: 1px solid var(--color-white);
+  border-radius: 0;
+  padding: 8px 16px;
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  color: var(--color-white);
+}
+
+.terminal-input:focus {
+  outline: none;
+  border: 2px solid var(--color-terminal-green);
+}
+
+.terminal-input::placeholder {
+  color: var(--color-iron);
+}
+
+/* 
+ * Component Example: ASCII Art Border
+ */
+.terminal-ascii-border {
+  border: 1px solid var(--color-white);
+  position: relative;
+  padding: 24px;
+}
+
+.terminal-ascii-border::before {
+  content: '+';
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  color: var(--color-white);
+  background: var(--color-black);
+}
+
+.terminal-ascii-border::after {
+  content: '+';
+  position: absolute;
+  top: -1px;
+  right: -1px;
+  color: var(--color-white);
+  background: var(--color-black);
+}
+
+/* 
+ * Component Example: Terminal Cursor
+ */
+.terminal-cursor {
+  display: inline-block;
+  width: 0.5em;
+  height: 1em;
+  background: var(--color-terminal-green);
+  animation: blink-cursor 500ms infinite;
+  margin-left: 4px;
+}
+
+/* 
+ * Component Example: Terminal List
+ */
+.terminal-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.terminal-list li {
+  padding: 8px 0;
+  font-family: var(--font-mono);
+}
+
+.terminal-list li::before {
+  content: '> ';
+  color: var(--color-terminal-green);
+  margin-right: 8px;
+}
+
+/* 
+ * Layout Classes - 8px Grid System
+ */
+.terminal-container {
+  padding: 16px;
+}
+
+.terminal-section {
+  margin-bottom: 32px;
+}
+
+.terminal-divider {
+  border: none;
+  border-top: 1px solid var(--color-white);
+  margin: 24px 0;
+}

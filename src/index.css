@@ -1,11 +1,9 @@
 @import 'tailwindcss';
 
 @theme {
-  --color-accent: #2563eb;
-  --color-accent-light: #3b82f6;
-  --color-marked: #dcfce7;
-  --color-marked-border: #22c55e;
-  --color-bingo: #fbbf24;
+  /* Default theme variables - will be overridden by data-theme */
+  --font-display: 'Orbitron', sans-serif;
+  --font-mono: 'Space Mono', monospace;
 }
 
 html,
@@ -14,8 +12,464 @@ body,
   height: 100%;
 }
 
-body {
+/* ============================================
+   DEFAULT THEME: SPACE GALAXY GLOW
+   ============================================ */
+:root,
+[data-theme="space-galaxy"] {
+  /* Deep Space Background Colors */
+  --color-space-dark: #0a0118;
+  --color-space-deep: #1a0b2e;
+  --color-space-medium: #2d1b4e;
+  --color-nebula-purple: #4a1a6b;
+  
+  /* Neon Accent Colors */
+  --color-neon-cyan: #00f0ff;
+  --color-neon-magenta: #ff00e5;
+  --color-neon-purple: #9d4edd;
+  --color-neon-blue: #00d4ff;
+  --color-neon-pink: #ff006e;
+  
+  /* Glow Effects */
+  --glow-cyan: 0 0 10px #00f0ff, 0 0 20px #00f0ff, 0 0 30px #00f0ff;
+  --glow-magenta: 0 0 10px #ff00e5, 0 0 20px #ff00e5, 0 0 30px #ff00e5;
+  --glow-purple: 0 0 10px #9d4edd, 0 0 20px #9d4edd, 0 0 30px #9d4edd;
+  --glow-soft-cyan: 0 0 5px rgba(0, 240, 255, 0.5), 0 0 10px rgba(0, 240, 255, 0.3);
+  --glow-soft-magenta: 0 0 5px rgba(255, 0, 229, 0.5), 0 0 10px rgba(255, 0, 229, 0.3);
+  
+  /* Typography */
+  --font-display: 'Orbitron', sans-serif;
+  --font-mono: 'Space Mono', monospace;
+}
+
+:root body,
+[data-theme="space-galaxy"] body {
   margin: 0;
-  font-family: system-ui, -apple-system, sans-serif;
+  font-family: var(--font-mono);
+  background: var(--color-space-dark);
+  color: #ffffff;
   -webkit-tap-highlight-color: transparent;
+  overflow-x: hidden;
+}
+
+/* ============================================
+   ZEN GARDEN THEME
+   ============================================ */
+[data-theme="zen-garden"] {
+  /* Primary Colors */
+  --color-sand: #f5f1e8;
+  --color-stone: #d4cfc4;
+  --color-pebble: #9b9690;
+  --color-charcoal: #3d3d3d;
+  --color-ink: #1a1a1a;
+  
+  /* Accent Colors */
+  --color-sage: #a8b5a0;
+  --color-clay: #c9a88e;
+  --color-water: #b8d4d8;
+  --color-bamboo: #8b9a76;
+  
+  /* Semantic Colors */
+  --color-surface: var(--color-sand);
+  --color-surface-elevated: #ffffff;
+  --color-border: rgba(61, 61, 61, 0.08);
+  --color-text-primary: var(--color-charcoal);
+  --color-text-secondary: var(--color-pebble);
+  --color-accent: var(--color-sage);
+  --color-marked: var(--color-clay);
+  --color-bingo: var(--color-bamboo);
+  
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 12px 24px rgba(0, 0, 0, 0.10);
+  
+  /* Typography */
+  --font-display: 'Cormorant Garamond', serif;
+  --font-body: 'Inter', sans-serif;
+  --font-accent: 'Zen Kaku Gothic New', sans-serif;
+}
+
+[data-theme="zen-garden"] body {
+  margin: 0;
+  font-family: var(--font-body);
+  background: var(--color-sand);
+  color: var(--color-charcoal);
+  -webkit-tap-highlight-color: transparent;
+  overflow-x: hidden;
+}
+
+/* Add subtle paper texture for Zen Garden */
+[data-theme="zen-garden"] body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4'%3E%3Cpath d='M0 0h1v1H0zm2 2h1v1H2z' fill='%23000' fill-opacity='0.02'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* ============================================
+   RETRO ARCADE THEME
+   ============================================ */
+[data-theme="retro-arcade"] {
+  /* Primary Colors */
+  --color-screen-black: #0d0208;
+  --color-screen-dark: #1a0f1e;
+  --color-arcade-purple: #3c096c;
+  --color-cabinet-blue: #10002b;
+  
+  /* Neon Accent Colors */
+  --color-neon-pink: #ff006e;
+  --color-neon-yellow: #ffbe0b;
+  --color-neon-cyan: #00f5ff;
+  --color-neon-green: #39ff14;
+  --color-neon-orange: #fb5607;
+  
+  /* Semantic Colors */
+  --color-surface: var(--color-screen-black);
+  --color-surface-elevated: var(--color-arcade-purple);
+  --color-border: var(--color-neon-cyan);
+  --color-text-primary: #ffffff;
+  --color-text-secondary: var(--color-neon-yellow);
+  --color-accent: var(--color-neon-pink);
+  --color-marked: var(--color-neon-yellow);
+  --color-bingo: var(--color-neon-green);
+  
+  /* Neon Glows */
+  --glow-pink: 0 0 5px #ff006e, 0 0 10px #ff006e, 0 0 20px #ff006e, 0 0 40px #ff006e;
+  --glow-cyan: 0 0 5px #00f5ff, 0 0 10px #00f5ff, 0 0 20px #00f5ff, 0 0 40px #00f5ff;
+  --glow-yellow: 0 0 5px #ffbe0b, 0 0 10px #ffbe0b, 0 0 20px #ffbe0b;
+  --glow-green: 0 0 5px #39ff14, 0 0 10px #39ff14, 0 0 20px #39ff14, 0 0 40px #39ff14;
+  --arcade-inset: inset 0 -4px 0 rgba(0, 0, 0, 0.5);
+  
+  /* Typography */
+  --font-display: 'Press Start 2P', cursive;
+  --font-body: 'VT323', monospace;
+  --font-score: 'Bungee', display;
+}
+
+[data-theme="retro-arcade"] body {
+  margin: 0;
+  font-family: var(--font-body);
+  background: var(--color-screen-black);
+  color: #ffffff;
+  -webkit-tap-highlight-color: transparent;
+  overflow-x: hidden;
+}
+
+/* CRT Scanlines Effect for Retro Arcade */
+[data-theme="retro-arcade"] body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.15),
+    rgba(0, 0, 0, 0.15) 1px,
+    transparent 1px,
+    transparent 2px
+  );
+  pointer-events: none;
+  z-index: 9999;
+  animation: crt-flicker 0.1s infinite;
+}
+
+/* ============================================
+   BRUTALIST TERMINAL THEME
+   ============================================ */
+[data-theme="brutalist-terminal"] {
+  /* Monochromatic Core */
+  --color-black: #000000;
+  --color-void: #0a0a0a;
+  --color-concrete: #1a1a1a;
+  --color-steel: #333333;
+  --color-iron: #666666;
+  --color-aluminum: #999999;
+  --color-chalk: #cccccc;
+  --color-white: #ffffff;
+  
+  /* Accent Colors (Minimal Use) */
+  --color-terminal-green: #00ff00;
+  --color-error-red: #ff0000;
+  --color-warning-yellow: #ffff00;
+  
+  /* Semantic Colors */
+  --color-surface: var(--color-black);
+  --color-surface-elevated: var(--color-concrete);
+  --color-border: var(--color-white);
+  --color-text-primary: var(--color-white);
+  --color-text-secondary: var(--color-aluminum);
+  --color-accent: var(--color-terminal-green);
+  --color-marked: var(--color-warning-yellow);
+  --color-bingo: var(--color-terminal-green);
+  
+  /* Typography */
+  --font-mono: 'IBM Plex Mono', 'Courier New', monospace;
+  --font-display: 'Roboto Mono', monospace;
+}
+
+[data-theme="brutalist-terminal"] body {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 16px;
+  line-height: 1.6;
+  background: var(--color-black);
+  color: var(--color-white);
+  -webkit-tap-highlight-color: transparent;
+  -webkit-font-smoothing: none;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: geometricPrecision;
+}
+
+/* Keyframe Animations */
+
+/* Space Galaxy Animations */
+@keyframes glow-pulse {
+  0%, 100% {
+    text-shadow: var(--glow-cyan);
+    filter: brightness(1);
+  }
+  50% {
+    text-shadow: 0 0 15px #00f0ff, 0 0 30px #00f0ff, 0 0 45px #00f0ff, 0 0 60px #00f0ff;
+    filter: brightness(1.3);
+  }
+}
+
+@keyframes border-glow {
+  0%, 100% {
+    box-shadow: var(--glow-soft-cyan);
+    border-color: var(--color-neon-cyan);
+  }
+  50% {
+    box-shadow: var(--glow-cyan);
+    border-color: var(--color-neon-blue);
+  }
+}
+
+@keyframes float-up {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes ripple {
+  0% {
+    transform: scale(0);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+@keyframes star-burst {
+  0% {
+    transform: scale(0) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(3) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+@keyframes neon-flicker {
+  0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+    opacity: 1;
+    text-shadow: var(--glow-purple);
+  }
+  20%, 24%, 55% {
+    opacity: 0.4;
+    text-shadow: none;
+  }
+}
+
+@keyframes sweep-light {
+  0% {
+    transform: translateX(-100%) rotate(45deg);
+  }
+  100% {
+    transform: translateX(300%) rotate(45deg);
+  }
+}
+
+@keyframes rotate-glow {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes particle-float {
+  0% {
+    transform: translate(0, 0) scale(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(var(--tx), var(--ty)) scale(1);
+    opacity: 0;
+  }
+}
+
+@keyframes scale-bounce {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes spin-glow {
+  0% {
+    transform: rotate(0deg);
+    filter: hue-rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+    filter: hue-rotate(360deg);
+  }
+}
+
+/* Zen Garden Animations */
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slide-up {
+  from { 
+    opacity: 0; 
+    transform: translateY(16px);
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0);
+  }
+}
+
+@keyframes gentle-scale {
+  from { transform: scale(0.95); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+@keyframes ripple-zen {
+  from { 
+    transform: scale(0.8);
+    opacity: 0.4;
+  }
+  to { 
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}
+
+@keyframes pulse-border {
+  0%, 100% { 
+    border-color: var(--color-bamboo);
+    box-shadow: var(--shadow-sm);
+  }
+  50% { 
+    border-color: var(--color-sage);
+    box-shadow: var(--shadow-md);
+  }
+}
+
+/* Retro Arcade Animations */
+@keyframes blink-arcade {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+@keyframes crt-flicker {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.95; }
+}
+
+@keyframes neon-pulse {
+  0%, 100% { 
+    text-shadow: var(--glow-pink);
+    filter: brightness(1);
+  }
+  50% { 
+    text-shadow: 0 0 10px #ff006e, 0 0 20px #ff006e, 0 0 40px #ff006e, 0 0 80px #ff006e;
+    filter: brightness(1.5);
+  }
+}
+
+@keyframes neon-pulse-cyan {
+  0%, 100% { 
+    box-shadow: var(--glow-cyan);
+  }
+  50% { 
+    box-shadow: 0 0 10px #00f5ff, 0 0 20px #00f5ff, 0 0 40px #00f5ff, 0 0 80px #00f5ff;
+  }
+}
+
+@keyframes pixel-pop {
+  0% { transform: scale(0); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+@keyframes screen-shake {
+  0%, 100% { transform: translate(0, 0); }
+  10% { transform: translate(-2px, 1px); }
+  20% { transform: translate(2px, -1px); }
+  30% { transform: translate(-2px, -1px); }
+  40% { transform: translate(2px, 1px); }
+  50% { transform: translate(-1px, 2px); }
+  60% { transform: translate(1px, -2px); }
+  70% { transform: translate(-1px, -2px); }
+  80% { transform: translate(1px, 2px); }
+  90% { transform: translate(-1px, 1px); }
+}
+
+@keyframes color-cycle {
+  0% { border-color: var(--color-neon-cyan); }
+  33% { border-color: var(--color-neon-pink); }
+  66% { border-color: var(--color-neon-yellow); }
+  100% { border-color: var(--color-neon-cyan); }
+}
+
+/* Brutalist Terminal Animations */
+@keyframes blink-cursor {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+@keyframes flash-border {
+  0%, 100% { border-color: var(--color-white); }
+  50% { border-color: var(--color-terminal-green); }
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

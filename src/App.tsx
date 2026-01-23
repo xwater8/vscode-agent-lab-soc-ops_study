@@ -2,34 +2,68 @@ import { useBingoGame } from './hooks/useBingoGame';
 import { StartScreen } from './components/StartScreen';
 import { GameScreen } from './components/GameScreen';
 import { BingoModal } from './components/BingoModal';
+import { ScavengerHuntScreen } from './components/ScavengerHuntScreen';
+import { ScavengerCompleteModal } from './components/ScavengerCompleteModal';
+import { StarField } from './components/StarField';
+import { ThemeSwitcher } from './components/ThemeSwitcher';
 
 function App() {
   const {
     gameState,
     board,
+    scavengerQuestions,
     winningSquareIds,
     showBingoModal,
+    showScavengerModal,
     startGame,
+    startScavengerHunt,
     handleSquareClick,
+    toggleScavengerQuestion,
     resetGame,
     dismissModal,
+    dismissScavengerModal,
   } = useBingoGame();
-
-  if (gameState === 'start') {
-    return <StartScreen onStart={startGame} />;
-  }
 
   return (
     <>
-      <GameScreen
-        board={board}
-        winningSquareIds={winningSquareIds}
-        hasBingo={gameState === 'bingo'}
-        onSquareClick={handleSquareClick}
-        onReset={resetGame}
-      />
-      {showBingoModal && (
-        <BingoModal onDismiss={dismissModal} />
+      {/* Theme Switcher */}
+      <ThemeSwitcher />
+      
+      {/* Global animated starfield background */}
+      <StarField />
+      
+      {gameState === 'start' ? (
+        <StartScreen 
+          onStartBingo={startGame} 
+          onStartScavenger={startScavengerHunt}
+        />
+      ) : gameState === 'scavenger-playing' || gameState === 'scavenger-complete' ? (
+        <>
+          <ScavengerHuntScreen
+            questions={scavengerQuestions}
+            onToggleQuestion={toggleScavengerQuestion}
+            onBack={resetGame}
+          />
+          {showScavengerModal && (
+            <ScavengerCompleteModal 
+              onDismiss={dismissScavengerModal} 
+              onPlayAgain={startScavengerHunt}
+            />
+          )}
+        </>
+      ) : (
+        <>
+          <GameScreen
+            board={board}
+            winningSquareIds={winningSquareIds}
+            hasBingo={gameState === 'bingo'}
+            onSquareClick={handleSquareClick}
+            onReset={resetGame}
+          />
+          {showBingoModal && (
+            <BingoModal onDismiss={dismissModal} />
+          )}
+        </>
       )}
     </>
   );
